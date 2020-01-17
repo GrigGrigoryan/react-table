@@ -41,25 +41,10 @@ class UserService {
     }
 
     async createUserData (data) {
-        if (!data.name) {
-            throw new Error('firstname is not defined');
-        }
-
-        if (!data.username) {
-            throw new Error('username is not defined');
-        }
-
-        if (!data.email) {
-            throw new Error('email is not defined');
-        }
-
-        if (!data.password) {
-            throw new Error('password is not defined');
-        }
-
         let user = new this.app.db.users();
 
-        user.name = data.name;
+        user.firstname = data.firstname;
+        user.lastname = data.lastname;
         user.username = data.username;
         user.email = data.email;
 

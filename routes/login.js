@@ -11,7 +11,7 @@ module.exports = (app, services, baseRoute) => {
                 }
 
                 return res.json({
-                    status: "success",
+                    status: "Success",
                     message: `User: ${userVerified.username} logged in successfully`
                 });
             } catch (err) {
