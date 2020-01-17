@@ -134,6 +134,7 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500);
     if (req.accepts('application/json')) {
         return res.json({
+            status: 'Error',
             message: err.message
         });
     }

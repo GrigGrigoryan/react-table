@@ -7,15 +7,15 @@ class UserService {
     }
 
     async getUserByUsername (username) {
-        const user = await this.app.db.users.findOne({username});
-
-        if (!user) {
-            throw new Error('User is not defined');
-        }
+        return this.app.db.users.findOne({username});
     }
 
     getUserByEmail (email) {
         return this.app.db.users.findOne({email});
+    }
+
+    getUserById (_id) {
+        return this.app.db.users.findOne({_id});
     }
 
     async verifyUser (username, password) {
