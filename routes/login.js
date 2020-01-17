@@ -1,6 +1,9 @@
+const jwt = require('jsonwebtoken');
+const config = require('../config');
+
 module.exports = (app, services, baseRoute) => {
     app.route(`/${baseRoute}`)
-        .post(async (req, res, next) => {
+        .post(async (req, res) => {
             try {
                 const {username, password} = req.body;
 
@@ -10,9 +13,15 @@ module.exports = (app, services, baseRoute) => {
                     throw userVerified.errors;
                 }
 
+                let token = jwt.sign(
+                    {username}, config.secret,
+                    {expiresIn: '24h'},  //expires in 24 hours.
+                );
+
                 return res.json({
-                    status: "Success",
-                    message: `User: ${userVerified.username} logged in successfully`
+                    success: true,
+                    message: 'Authentication successful!',
+                    token
                 });
             } catch (err) {
                 return res.json({

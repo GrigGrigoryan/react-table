@@ -1,6 +1,6 @@
 module.exports = (app, services, baseRoute) => {
     app.route(`/${baseRoute ? baseRoute : ''}`)
-        .get((req, res, next) => {
+        .get((req, res) => {
             try {
                 // Cookies that have not been signed
                 console.log('Cookies: ', req.cookies);
