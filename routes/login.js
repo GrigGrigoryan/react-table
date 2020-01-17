@@ -1,6 +1,6 @@
 module.exports = (app, services, baseRoute) => {
     app.route(`/${baseRoute}`)
-        .post(async (req, res, next) => {
+        .post(async (req, res) => {
             try {
                 const {username, password} = req.body;
 

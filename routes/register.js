@@ -2,10 +2,8 @@ module.exports = (app, services, baseRoute) => {
     app.route(`/${baseRoute}`)
         .post(async (req, res) => {
             try {
-                console.log('asdasdsd', req.body);
                 const {firstname, lastname, username, email, password, password2} = req.body;
                 const errors = [];
-                console.log(firstname, lastname, username, email, password, password2);
 
                 if (!firstname || !lastname || !username || !email || !password || !password2) {
                     errors.push('Please fill in all fields');
