@@ -1,9 +1,7 @@
 module.exports = (app, services, baseRoute) => {
-    console.log(baseRoute);
     app.route(`/${baseRoute ? baseRoute : ''}`)
         .get((req, res, next) => {
             try {
-
                 // Cookies that have not been signed
                 console.log('Cookies: ', req.cookies);
 
@@ -15,14 +13,16 @@ module.exports = (app, services, baseRoute) => {
                     res.setHeader('Content-Type', 'text/html');
                     console.log('views', req.session.views);
                     console.log('expires in', (req.session.cookie.maxAge / 1000));
-                    return res.send();
+                    return res.end();
                 } else {
                     req.session.views = 1;
-                    return res.send(`welcome to the session demo ${req.user}. refresh!`);
+                    return res.end(`Welcome to the session demo ${req.user}. refresh!`);
                 }
-                // res.json({user: req.user});
             } catch (err) {
-                next(err);
+                return res.json({
+                    status: 'Error',
+                    message: err
+                });
             }
         })
 };

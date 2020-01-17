@@ -20,7 +20,7 @@ class UserService {
 
     async verifyUser (username, password) {
         let loginInfo = {
-            username: username,
+            username,
             errors: []
         };
 

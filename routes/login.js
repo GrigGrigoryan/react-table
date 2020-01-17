@@ -1,13 +1,24 @@
 module.exports = (app, services, baseRoute) => {
     app.route(`/${baseRoute}`)
-        .get(async (req, res, next) => {
-            try {
-                res.sendFile('login.html', {root: process.env.root, tab: 'login'});
-            } catch (err) {
-                next(err);
-            }
-        })
         .post(async (req, res, next) => {
-            res.sendFile('index.html', {root: process.env.root, tab: 'home'});
+            try {
+                const {username, password} = req.body;
+
+                const userVerified = await services.userService.verifyUser(username, password);
+
+                if (userVerified.errors.length > 0) {
+                    throw userVerified.errors;
+                }
+
+                return res.json({
+                    status: "success",
+                    message: `User: ${userVerified.username} logged in successfully`
+                });
+            } catch (err) {
+                return res.json({
+                    status: 'Error',
+                    message: err
+                });
+            }
         });
 };

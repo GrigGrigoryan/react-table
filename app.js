@@ -6,7 +6,6 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const jwt = require('jsonwebtoken');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -39,9 +38,7 @@ const UserService = require('./modules/user-service');
 
 const userService = new UserService(app.locals);
 
-const Services = {
-    userService
-};
+const Services = {userService};
 
 fs.readdirSync('routes')
     .filter(file => file.substr(0, 1) !== '.')
@@ -99,18 +96,6 @@ app.post('/api/posts', verifyToken, (req,res) => {
     });
     res.json({
         message: 'Post created'
-    });
-});
-
-app.post('/api/login', (req, res) => {
-    const user = {
-        id: 1,
-        username: 'Grigor',
-        email: 'grigor@gmail.com'
-    }
-
-    jwt.sign({user}, 'secretkey', (err, token) => {
-        res.json({token});
     });
 });
 
