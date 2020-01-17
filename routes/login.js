@@ -15,7 +15,7 @@ module.exports = (app, services, baseRoute) => {
 
                 let token = jwt.sign(
                     {username}, config.secret,
-                    {expiresIn: '24h'}, //expires in 24 hours.
+                    {expiresIn: '24h'},  //expires in 24 hours.
                 );
 
                 return res.json({
